@@ -301,6 +301,7 @@ class CartRow
     protected function getProductPrice(CartCore $cart, $rowData)
     {
         $productId = (int) $rowData['id_product'];
+        $productAttributeId = (int) $rowData['id_product_attribute'];
         $quantity = (int) $rowData['cart_quantity'];
 
         $addressId = $cart->getProductAddressId($rowData);
@@ -325,14 +326,15 @@ class CartRow
 
         $cartQuantity = 0;
         if ((int) $cart->id) {
-            $cacheId = sprintf(self::PRODUCT_PRICE_CACHE_ID_PATTERN, (int) $productId, (int) $cart->id);
+            $cacheId = sprintf(self::PRODUCT_PRICE_CACHE_ID_PATTERN, (int) $productId, (int) $productAttributeId, (int) $cart->id);
             if (!$this->cacheAdapter->isStored($cacheId)
                 || ($cartQuantity = $this->cacheAdapter->retrieve($cacheId)
                                     != (int) $quantity)) {
                 $sql = 'SELECT SUM(`quantity`)
-				FROM `' . _DB_PREFIX_ . 'cart_product`
-				WHERE `id_product` = ' . (int) $productId . '
-				AND `id_cart` = ' . (int) $cart->id;
+                FROM `' . _DB_PREFIX_ . 'cart_product`
+                WHERE `id_product` = ' . (int) $productId . '
+                AND `id_product_attribute` = ' . (int) $productAttributeId . '
+                AND `id_cart` = ' . (int) $cart->id;
                 $cartQuantity = (int) $this->databaseAdapter->getValue($sql, _PS_USE_SQL_SLAVE_);
                 $this->cacheAdapter->store($cacheId, (string) $cartQuantity);
             } else {

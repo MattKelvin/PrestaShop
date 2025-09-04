@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    autowire: true
+    public: false
+
+  PrestaShop\PrestaShop\Adapter\Tag\Validate\TagValidator: ~
+
+  PrestaShop\PrestaShop\Adapter\Tag\Repository\TagRepository:
+    arguments:
+      $connection: '@doctrine.dbal.default_connection'
+      $dbPrefix: '%database_prefix%'
+
+  PrestaShop\PrestaShop\Adapter\Tag\QueryHandler\GetTagForEditingHandler:
+    autoconfigure: true
+
+  PrestaShop\PrestaShop\Adapter\Tag\QueryHandler\SearchForSearchTermHandler:
+    autoconfigure: true
+
+  PrestaShop\PrestaShop\Adapter\Tag\QueryHandler\GetTagsBySearchTermForEditingHandler:
+    autoconfigure: true
+
+  PrestaShop\PrestaShop\Adapter\Tag\CommandHandler\AddSearchTermTagsHandler:
+    autoconfigure: true
+
+  PrestaShop\PrestaShop\Adapter\Tag\CommandHandler\DeleteSearchTermTagsHandler:
+    autoconfigure: true
+
+  PrestaShop\PrestaShop\Adapter\Tag\CommandHandler\BulkDeleteSearchTermsTagsHandler:
+    autoconfigure: true
+
+  PrestaShop\PrestaShop\Adapter\Tag\CommandHandler\UpdateSearchTermTagsHandler:
+    autoconfigure: true

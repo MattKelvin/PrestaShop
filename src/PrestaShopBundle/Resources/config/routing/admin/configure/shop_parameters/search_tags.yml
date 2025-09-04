@@ -1,0 +1,55 @@
+admin_search_tags_index:
+  path: /
+  methods: [ GET ]
+  defaults:
+    _controller: PrestaShopBundle\Controller\Admin\Configure\ShopParameters\SearchTagsController::indexAction
+    _legacy_controller: AdminTags
+    _legacy_link: AdminTags
+
+admin_search_tags_search:
+  path: /
+  methods: [ POST ]
+  defaults:
+    _controller: PrestaShopBundle\Controller\Admin\CommonController::searchGridAction
+    gridDefinitionFactoryServiceId: PrestaShop\PrestaShop\Core\Grid\Definition\Factory\TagGridDefinitionFactory
+    redirectRoute: admin_search_tags_index
+    _legacy_link: AdminTags:submitFiltertags
+    _legacy_controller: AdminTags
+
+admin_search_tags_delete:
+  path: /{searchTerm}/delete
+  methods: [ POST, DELETE ]
+  defaults:
+    _controller: PrestaShopBundle\Controller\Admin\Configure\ShopParameters\SearchTagsController::deleteAction
+    _legacy_link: AdminTags:deletetags
+    _legacy_controller: AdminTags
+  requirements:
+    searchTerm: "[^\/]+"
+
+admin_search_tags_bulk_delete:
+  path: /bulk-delete
+  methods: [ POST, DELETE ]
+  defaults:
+    _controller: PrestaShopBundle\Controller\Admin\Configure\ShopParameters\SearchTagsController::bulkDeleteAction
+    _legacy_link: AdminTags:submitBulkdeletetags
+    _legacy_controller: AdminTags
+
+admin_search_tags_create:
+  path: /new
+  methods: [ GET, POST ]
+  defaults:
+    _controller: PrestaShopBundle\Controller\Admin\Configure\ShopParameters\SearchTagsController::createAction
+    _legacy_link: AdminTags:addtags
+    _legacy_controller: AdminTags
+
+admin_search_tags_edit:
+  path: /{searchTerm}/edit
+  methods: [ GET, POST ]
+  defaults:
+    _controller: PrestaShopBundle\Controller\Admin\Configure\ShopParameters\SearchTagsController::editAction
+    _legacy_link: AdminTags:updatetags
+    _legacy_parameters:
+      searchTerm: searchTerm
+    _legacy_controller: AdminTags
+  requirements:
+    searchTerm: "[^\/]+"

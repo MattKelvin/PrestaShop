@@ -453,6 +453,12 @@ services:
     public: true
     autowire: true
 
+  PrestaShop\PrestaShop\Core\Grid\Definition\Factory\TagGridDefinitionFactory:
+    parent: PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory
+    # must remain public to be accessed by CommonController:searchGridAction
+    public: true
+    autowire: true
+
   PrestaShop\PrestaShop\Core\Grid\Definition\Factory\FeatureGridDefinitionFactory:
     parent: PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory
     autowire: true
